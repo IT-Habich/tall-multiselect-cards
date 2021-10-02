@@ -1,0 +1,1 @@
+<input wire:model="searchTerm" type="text" name="tall-multiselect-cards-{{ $this->identifier }}-search" id="tall-multiselect-cards-{{ $this->identifier }}-search" placeholder="{{ __('tall-multiselect-cards::strings.search') }}" class="shadow-md rounded-lg focus:bg-{{ $this->settings['search_color_bg_focus'] }} focus:border-{{ $this->settings['search_color_focus'] }}">

@@ -1,0 +1,58 @@
+{
+    "name": "codeadminde/tall-multiselect-cards",
+    "description": "A TALL-based Laravel Livewire component to replace the (multiple) select HTML input form with beautiful cards.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frederic Habich",
+            "email": "frederic.habich@codeadmin.de"
+        }
+    ],
+    "keywords": [
+        "Laravel",
+        "Livewire",
+        "Tailwind CSS",
+        "Alpine JS",
+        "HTML Form",
+        "Form",
+        "Multiselect",
+        "select"
+    ],
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "^8.0",
+        "livewire/livewire": "^2.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.5",
+        "nunomaduro/collision": "^5.10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeAdminDe\\TallMultiselectCards\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeAdminDe\\TallMultiselectCards\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/testbench package:test",
+        "test-p": "./vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodeAdminDe\\TallMultiselectCards\\ServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

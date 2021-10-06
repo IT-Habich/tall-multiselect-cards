@@ -17,9 +17,12 @@
   * [3.2 Language](#32-language)
 * [4. Configuration](#4-configuration)
   * [4.1 Configuration values](#41-configuration-values)
-* [5. Tests](#5-tests)
-* [6. Feedback / Support / Security](#6-feedback-support-security)
-* [7. License](#7-license)
+* [5. Macros](#5-Macros)
+  * [5.1 query](#51-query)
+  * [5.2 filter](#52-filter)
+* [6. Tests](#6-tests)
+* [7. Feedback / Support / Security](#7-feedback-support-security)
+* [8. License](#8-license)
 
 ## 1. Features
 
@@ -50,7 +53,7 @@ Please take note that you'll need to determine which configuration the component
 
 The component emits an event when a user clicks the `Save` button which allows you to interact with the component.
 
-The emitted event name will be suffixed by the chosen `identifier` (see [Configuration values](#configuration-values) - [1]) to use the component multiple times (and perhaps at the same page).
+The emitted event name will be suffixed by the chosen `identifier` (see [Configuration values](#41-configuration-values) - [1]) to use the component multiple times (and perhaps at the same page).
 It contains an array of the model IDs (value of the model attribute that you've configured to use as `uniqueId` attribute) that were selected by checking the cards.
 
 #### 2.2.1 Sample event / implementation
@@ -191,20 +194,55 @@ You can use it directly with the Laravel default `User` model:
 
 **All config values are required and need to return a string unless otherwise stated.**
 
-## 5. Tests
+## 5. Macros
+
+The available macros allow you to manipulate the retrieved data. Just add them to the `boot` method of your applications ServiceProvider. (e.g. 'AppServiceProvider').
+
+### 5.1 query
+
+To extend / override the database query that loads the initial data, implement the `query` macro.
+
+Sample:
+
+```php
+TallMultiselectCards::macro('query', function ($model, $selectedAttributes)
+{
+    return $model::select($selectedAttributes)->where('is_suspended', false);
+});
+```
+
+### 5.2 filter
+
+Implement the `filter` macro if you want to manipulate the collection returned by the database query.
+
+```php
+TallMultiselectCards::macro('filter', function ($collection)
+{
+    $filtered = $collection->filter(function ($item) {
+        if (!$item->is_expired) {
+            return $item;
+        }
+    });
+
+    return $filtered;
+});
+```
+**Note:** You should only filter and not manipulate the items themselves, as the collection will be processed further.
+
+## 6. Tests
 
 Please install the dev-dependencies first. Then you'll be able to run the tests via composer:
 
 * Testing with testbench binary: `composer test`
 * Testing with PHPUnit binary: `composer test-p`
 
-## 6. Feedback / Support / Security
+## 7. Feedback / Support / Security
 
 Please reach out to me at <frederic.habich@codeadmin.de> for feedback or if you'll need support.
 
 If you find security-related issues, please do not use the issue tracker instead, contact me via email.
 
-## 7. License
+## 8. License
 
 The content of this repository is released under the [MIT license](LICENSE).
 

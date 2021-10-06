@@ -91,16 +91,21 @@ class TallMultiselectCards extends Component
     {
         $selectedAttributes = collect($this->attributes)->filter()->values()->toArray();
 
-        $query = $this->model::select($selectedAttributes)
-            ->when('' !== $this->searchTerm, function ($q) use ($selectedAttributes) {
-                foreach ($selectedAttributes as $key => $value) {
-                    if (0 === $key) {
-                        $q->where($value, 'like', '%' . $this->searchTerm . '%');
-                    } else {
-                        $q->orWhere($value, 'like', '%' . $this->searchTerm . '%');
-                    }
+        if ($this::hasMacro('query')) {
+            $query = $this::query($this->model, $selectedAttributes);
+        } else {
+            $query = $this->model::select($selectedAttributes);
+        }
+
+        $query->when('' !== $this->searchTerm, function ($q) use ($selectedAttributes) {
+            foreach ($selectedAttributes as $key => $value) {
+                if (0 === $key) {
+                    $q->where($value, 'like', '%' . $this->searchTerm . '%');
+                } else {
+                    $q->orWhere($value, 'like', '%' . $this->searchTerm . '%');
                 }
-            });
+            }
+        });
 
         if ($this->settings['paginate_data']) {
             $rows = $query->paginate($this->settings['paginate_data_per_page'], ['*'], 'page', $this->page);
@@ -109,6 +114,10 @@ class TallMultiselectCards extends Component
         } else {
             $collection = $query->get();
             $this->maxPages = 0;
+        }
+
+        if ($this::hasMacro('filter')) {
+            $collection = $this::filter($collection);
         }
 
         return $collection

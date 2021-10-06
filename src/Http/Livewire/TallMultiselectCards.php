@@ -97,14 +97,16 @@ class TallMultiselectCards extends Component
             $query = $this->model::select($selectedAttributes);
         }
 
-        $query->when('' !== $this->searchTerm, function ($q) use ($selectedAttributes) {
-            foreach ($selectedAttributes as $key => $value) {
-                if (0 === $key) {
-                    $q->where($value, 'like', '%' . $this->searchTerm . '%');
-                } else {
-                    $q->orWhere($value, 'like', '%' . $this->searchTerm . '%');
+        $query->when('' !== $this->searchTerm, function ($query) use ($selectedAttributes) {
+            $query->where(function ($q) use ($selectedAttributes) {
+                foreach ($selectedAttributes as $key => $value) {
+                    if (0 === $key) {
+                        $q->where($value, 'like', '%' . $this->searchTerm . '%');
+                    } else {
+                        $q->orWhere($value, 'like', '%' . $this->searchTerm . '%');
+                    }
                 }
-            }
+            });
         });
 
         if ($this->settings['paginate_data']) {

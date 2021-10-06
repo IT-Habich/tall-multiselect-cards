@@ -17,7 +17,7 @@
   * [3.2 Language](#32-language)
 * [4. Configuration](#4-configuration)
   * [4.1 Configuration values](#41-configuration-values)
-* [5. Macros](#5-Macros)
+* [5. Macros](#5-macros)
   * [5.1 query](#51-query)
   * [5.2 filter](#52-filter)
 * [6. Tests](#6-tests)

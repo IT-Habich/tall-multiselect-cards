@@ -227,7 +227,7 @@ TallMultiselectCards::macro('filter', function ($collection)
     return $filtered;
 });
 ```
-**Note:** You should only filter and not manipulate the items themselves, as the collection will be processed further.
+**Note:** You should not manipulate the structure of the items themselves, as the collection will be processed further. Use the package without pagination, if you'll add/remove items from the collection at this point to avoid unexpected pagination results.
 
 ## 6. Tests
 

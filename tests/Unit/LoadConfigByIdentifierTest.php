@@ -23,7 +23,7 @@ class LoadConfigByIdentifierTest extends TestCase
             ->assertSet('identifier', 'User')
             ->assertCount('settings', 25)
             ->assertCount('state', 10)
-            ->assertCount('attributes', 4);
+            ->assertCount('modelAttributes', 4);
     }
 
     /** @test */

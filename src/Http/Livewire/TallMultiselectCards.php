@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class TallMultiselectCards extends Component
 {
-    public $attributes;
+    public $modelAttributes;
     public $settings;
     public $model;
     public $identifier;
@@ -25,7 +25,7 @@ class TallMultiselectCards extends Component
     {
         $this->validateIdentifierAndModel($identifier);
 
-        $this->attributes = config('tall-multiselect-cards.' . $identifier . ".attributes");
+        $this->modelAttributes = config('tall-multiselect-cards.' . $identifier . ".modelAttributes");
         $this->settings = config('tall-multiselect-cards.' . $identifier . ".settings");
         $this->model = config('tall-multiselect-cards.' . $identifier . ".model");
         $this->identifier = $identifier;
@@ -89,7 +89,7 @@ class TallMultiselectCards extends Component
 
     private function loadData(): array
     {
-        $selectedAttributes = collect($this->attributes)->filter()->values()->toArray();
+        $selectedAttributes = collect($this->modelAttributes)->filter()->values()->toArray();
 
         if ($this::hasMacro('query')) {
             $query = $this::query($this->model, $selectedAttributes);
@@ -124,13 +124,13 @@ class TallMultiselectCards extends Component
 
         return $collection
             ->mapWithKeys(function ($item) {
-                return in_array($item[$this->attributes['uniqueId']], collect($this->state)->where('checked', true)->keys()->toArray())
+                return in_array($item[$this->modelAttributes['uniqueId']], collect($this->state)->where('checked', true)->keys()->toArray())
                     ? [NULL]
                     : [
-                        $item[$this->attributes['uniqueId']] => [
-                            'primary' => !empty($this->attributes['primary']) ? $item[$this->attributes['primary']] : NULL,
-                            'secondary' => !empty($this->attributes['secondary']) ? $item[$this->attributes['secondary']] : NULL,
-                            'optional' => !empty($this->attributes['optional']) ? $item[$this->attributes['optional']] : NULL,
+                        $item[$this->modelAttributes['uniqueId']] => [
+                            'primary' => !empty($this->modelAttributes['primary']) ? $item[$this->modelAttributes['primary']] : NULL,
+                            'secondary' => !empty($this->modelAttributes['secondary']) ? $item[$this->modelAttributes['secondary']] : NULL,
+                            'optional' => !empty($this->modelAttributes['optional']) ? $item[$this->modelAttributes['optional']] : NULL,
                             'checked' => false,
                         ]
                     ];

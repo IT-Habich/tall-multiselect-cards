@@ -21,7 +21,7 @@ return [
 
     'User' => [
         'model' => 'App\Models\User',
-        'attributes' => [
+        'modelAttributes' => [
             'uniqueId' => 'id',
             'primary' => 'name',
             'secondary' => 'email',
@@ -57,7 +57,7 @@ return [
     ],
     // 'Contact' => [
     //     'model' => 'App\Models\Contact',
-    //     'attributes' => [
+    //     'modelAttributes' => [
     //         'uniqueId' => 'id',
     //         'primary' => 'name',
     //         'secondary' => 'email',

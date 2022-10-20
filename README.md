@@ -140,7 +140,7 @@ You can use it directly with the Laravel default `User` model:
 ```php
     'User' => [ // [1]
         'model' => 'App\Models\User', // [2]
-        'attributes' => [  // [3]
+        'modelAttributes' => [  // [3]
             'uniqueId' => 'id', // unique model id (string)
             'primary' => 'name', // string OR NULL
             'secondary' => 'email',  // string OR NULL
@@ -177,7 +177,7 @@ You can use it directly with the Laravel default `User` model:
 ```
 * [1] Identifier: Provide a string that identifies the specific configuration / component. Note that this value should only contain [alpha_dash](https://laravel.com/docs/8.x/validation#rule-alpha-dash) chars.
 * [2] `model`: FQCN of the model class that you want to use with the component.
-* [3] `attributes`: Model attributes that you want to display as card content. 
+* [3] `modelAttributes`: Model attributes that you want to display as card content. 
   * Important: `uniqueId` won't be shown as card content and need to be set to the attribute that contains the model ID (or UUID). That's usually the `id` column in your database. 
 * [4] `settings`: Array of settings for the component.
   * [4.1] `paginate_data`: Enable or disable pagintion. 
